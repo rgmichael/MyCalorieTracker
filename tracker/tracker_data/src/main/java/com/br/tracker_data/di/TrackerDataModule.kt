@@ -11,6 +11,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 import javax.inject.Singleton
+import android.app.Application
+import androidx.room.Room
+import com.br.tracker_data.local.TrackerDatabase
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -37,5 +40,15 @@ object TrackerDataModule {
             .client(client)
             .build()
             .create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTrackerDatabase(app: Application): TrackerDatabase {
+        return Room.databaseBuilder(
+            app,
+            TrackerDatabase::class.java,
+            "tracker_db"
+        ).build()
     }
 }
