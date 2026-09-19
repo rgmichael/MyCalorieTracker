@@ -14,6 +14,8 @@ import javax.inject.Singleton
 import android.app.Application
 import androidx.room.Room
 import com.br.tracker_data.local.TrackerDatabase
+import com.br.tracker_data.repository.TrackerRepositoryImpl
+import com.br.tracker_domain.repository.TrackerRepository
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -50,5 +52,17 @@ object TrackerDataModule {
             TrackerDatabase::class.java,
             "tracker_db"
         ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTrackerRepository(
+        api: OpenFoodApi,
+        db: TrackerDatabase
+    ): TrackerRepository {
+        return TrackerRepositoryImpl(
+            dao = db.dao,
+            api = api
+        )
     }
 }
