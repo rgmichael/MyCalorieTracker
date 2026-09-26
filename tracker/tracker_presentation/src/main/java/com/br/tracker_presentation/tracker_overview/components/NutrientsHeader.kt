@@ -1,4 +1,4 @@
-package com.br.tracker_presentation.components
+package com.br.tracker_presentation.tracker_overview.components
 
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.background
@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.br.core_ui.CarbColor
 import com.br.core_ui.FatColor
 import com.br.core_ui.ProteinColor
+import com.br.tracker_presentation.components.UnitDisplay
 import com.br.tracker_presentation.tracker_overview.TrackerOverviewState
 
 @Composable

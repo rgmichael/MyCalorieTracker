@@ -1,4 +1,4 @@
-package com.br.tracker_presentation.components
+package com.br.tracker_presentation.tracker_overview.components
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.Canvas

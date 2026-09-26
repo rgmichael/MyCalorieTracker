@@ -1,7 +1,6 @@
 package com.br.tracker_presentation.tracker_overview
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,7 +8,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.br.core.util.UiEvent
 import com.br.core_ui.LocalSpacing
-import com.br.tracker_presentation.components.NutrientsHeader
+import com.br.tracker_presentation.tracker_overview.components.DaySelector
+import com.br.tracker_presentation.tracker_overview.components.NutrientsHeader
 
 @Composable
 fun TrackerOverviewScreen(
@@ -26,6 +26,20 @@ fun TrackerOverviewScreen(
     ) {
         item {
             NutrientsHeader(state = state)
+            Spacer(modifier = Modifier.height(spacing.spaceMedium))
+            DaySelector(
+                date = state.date,
+                onPreviousDayClick = {
+                    viewModel.onEvent(TrackerOverviewEvent.OnPreviousDayClick)
+                },
+                onNextDayClick = {
+                    viewModel.onEvent(TrackerOverviewEvent.OnNextDayClick)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = spacing.spaceMedium)
+            )
+            Spacer(modifier = Modifier.height(spacing.spaceMedium))
         }
     }
 }
