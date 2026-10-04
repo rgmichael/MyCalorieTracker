@@ -16,7 +16,7 @@ android {
         versionCode = ProjectConfig.versionCode
         versionName = ProjectConfig.versionName
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.br.mycalorytracker.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -42,7 +42,19 @@ android {
     }
     packaging {
         resources {
+            // Ignora arquivos de licença e metadados duplicados que o MockK traz
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/LICENSE.md"
+            excludes += "META-INF/LICENSE-notice.md"
+
+            // Caso ocorra erro de arquivos duplicados de arquitetura nativa (comum no MockK)
+            pickFirsts += "win32-x86-64/attach_hotspot_windows.dll"
+            pickFirsts += "win32-x86/attach_hotspot_windows.dll"
+            pickFirsts += "META-INF/licenses/ASM"
+        }
+        jniLibs {
+            // Garante que o Gradle vai incluir os arquivos .so compilados para o emulador
+            useLegacyPackaging = true
         }
     }
 }
@@ -101,6 +113,7 @@ dependencies {
     androidTestImplementation(Testing.turbine)
     androidTestImplementation(Testing.composeUiTest)
     androidTestImplementation(Testing.mockkAndroid)
+    androidTestImplementation(Testing.mockkAndroidAgent)
     androidTestImplementation(Testing.mockWebServer)
     androidTestImplementation(Testing.hiltTesting)
     kaptAndroidTest(DaggerHilt.hiltCompiler)
